@@ -9,7 +9,8 @@ public class Control {
 
         GUI mygui = new GUI();
         FileProcessor myDataSet = new FileProcessor("property_data.csv");
-        myDataSet.readFile();
+        //myDataSet.readFile();
 
+        myDataSet.printHashMap(myDataSet.readFile());
     }
 }

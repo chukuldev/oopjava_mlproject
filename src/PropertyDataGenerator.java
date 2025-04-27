@@ -23,7 +23,9 @@ public class PropertyDataGenerator {
             }
         }
 
-        //Adds the label to the unique permutations, alternating between yes and no
+        //Adds the label to the unique permutations by calling the genLabel function with
+        //our included logic. Then continues to create the rest of the 200 rows
+        //by copying the original unique permutations
         for (int i=0; i< 200; i++){
             String[] permutation = Arrays.copyOf(combinations.get(i%16), 5);
             permutation[4] = genLabel(permutation);

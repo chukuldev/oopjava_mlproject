@@ -1,9 +1,6 @@
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class FileProcessor {
     private String filename;
@@ -26,27 +23,79 @@ public class FileProcessor {
     }
 
     public HashMap<String, Map<String, Integer>> readFile(){
-        HashMap<String, Map<String, Integer>> lines = new HashMap<>();
-        Map<String, Integer> counts = new HashMap<>();
-        ArrayList<String> rows = new ArrayList<>();
+        HashMap<String, Map<String, Integer>> features = new HashMap<>();
 
-        lines.put("Grass", counts);
+        List<String[]> rows = new ArrayList<>();
+
+        String[] featureColumnsData = {"Grass", "Concrete",
+                "Double", "Single",
+                "House", "Apartment",
+                "Fixed", "Temporary"};
+
+        String[] featureColumns = {"GardenType", "BedSize", "PropertyType", "LeaseType", "PropertyIsRented"};
+
+        /*
+        features.put("Grass", counts);
         counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
-        try{
+         */
+
+        try {
             myScanner = new Scanner(myFile);
-            myScanner.useDelimiter(",");
-            while(myScanner.hasNextLine()){
-                rows.add(myScanner.next());
+            //skip my header line
+            myScanner.nextLine();
+
+            while (myScanner.hasNextLine()) {
+                //take the first line of the csv
+                String line = myScanner.nextLine();
+                //split the line into each column by using the ',' as a delimiter
+                String[] columns = line.split(",");
+                String[] row = new String[5];
+                for (int i = 0; i < 5; i++) {
+                    row[i] = columns[i].trim();
+                }
+                //add each row into my rows arraylist (array of string arrays)
+                rows.add(row);
+
             }
             myScanner.close();
         }
         catch(FileNotFoundException e){
             System.out.println("File not Found");
         }
-        System.out.println(rows);
-        return lines;
+
+        //Just for testing trying to make sure I can separate all the rows properly
+        for (String[] row : rows) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        for (String column : featureColumnsData){
+            Map<String, Integer> counts = new HashMap<>();
+            for (String[] row : rows) {
+                if(row[4].equals("Yes")){
+                    counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
+                }
+                else if (row[4].equals("No")){
+                    counts.put("No", counts.getOrDefault("No", 0)+1);
+                }
+            }
+            features.put(column, counts);
+        }
+
+        return features;
     }
 
+
+    public void printHashMap(HashMap<String, Map<String, Integer>> map) {
+        for (Map.Entry<String, Map<String, Integer>> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Map<String, Integer> innerMap = entry.getValue();
+
+            System.out.println("Key: " + key);
+            for (Map.Entry<String, Integer> innerEntry : innerMap.entrySet()) {
+                System.out.println("    " + innerEntry.getKey() + ": " + innerEntry.getValue());
+            }
+        }
+    }
 
 
     public void writeToFile(String input) throws IOException {
