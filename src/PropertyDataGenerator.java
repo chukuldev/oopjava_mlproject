@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class PropertyDataGenerator {
-    public static void main(String[] args) {
+    public static void genData() {
         // Define possible values
         String[] hasGarden = {"Grass", "Concrete"};
         String[] bedSize = {"Double", "Single"};
-        String[] propertyType = {"Apartment", "House"};
+        String[] propertyType = {"House", "Apartment"};
         String[] lease = {"Fixed", "Temporary"};
         List<String[]> dataset = new ArrayList<>();
 
@@ -25,14 +25,12 @@ public class PropertyDataGenerator {
 
         //Adds the label to the unique permutations, alternating between yes and no
         for (int i=0; i< 200; i++){
-            String label = (i % 2 == 0) ? "Yes" : "No";
             String[] permutation = Arrays.copyOf(combinations.get(i%16), 5);
-            permutation[4] = label;
+            permutation[4] = genLabel(permutation);
             dataset.add(permutation);
         }
 
-        //shuffle the dataset
-        Collections.shuffle(dataset, new Random(18));
+        
 
         // Write dataset to CSV file
         String fileName = "property_data.csv";
@@ -46,4 +44,18 @@ public class PropertyDataGenerator {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
+
+    //Function to generate a label based on what I believe would be a more desirable property type
+    //This is to make the data, and classifier/predictor more intuitive/realistic =)
+    public static String genLabel(String[] combination){
+        if (combination[0].equals("Grass") && combination[1].equals("Double")
+         && combination[3].equals("Fixed")){
+            return new Random().nextDouble() < 0.8 ? "Yes" : "No";
+        }
+        else{
+            return new Random().nextDouble() < 0.5 ? "Yes" : "No";
+        }
+    }
+
+
 }
