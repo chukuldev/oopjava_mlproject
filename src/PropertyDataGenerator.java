@@ -30,7 +30,7 @@ public class PropertyDataGenerator {
             dataset.add(permutation);
         }
 
-        
+
 
         // Write dataset to CSV file
         String fileName = "property_data.csv";
