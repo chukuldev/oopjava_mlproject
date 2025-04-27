@@ -68,17 +68,26 @@ public class FileProcessor {
             System.out.println(Arrays.toString(row));
         }
 
+        int i = 0;
+        boolean sameCol = true;
         for (String column : featureColumnsData){
             Map<String, Integer> counts = new HashMap<>();
             for (String[] row : rows) {
-                if(row[4].equals("Yes")){
+                if(row[4].equals("Yes") && (row[i].equals(column))){
                     counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
                 }
-                else if (row[4].equals("No")){
+                else if (row[4].equals("No") && (row[i].equals(column))){
                     counts.put("No", counts.getOrDefault("No", 0)+1);
                 }
             }
             features.put(column, counts);
+            if (sameCol){
+                sameCol = false;
+            }
+            else{
+                sameCol = true;
+                i++;
+            }
         }
 
         return features;
