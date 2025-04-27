@@ -1,12 +1,17 @@
-,,PropertyIsRented,,,,,PropertyIsRented,
-,,Yes,No,,,,Yes,No
-GardenType,Grass,61,43,,PropertyType,House,53,47
-,Concrete,47,49,,,Apartment,55,45
-,,P(Yes) = 108/200,P(No) = 92/200,,,,P(Yes) =  108/200,P(No) = 92/200
-,,,,,,,,
-,,,,,,,,
-,,PropertyIsRented,,,,,PropertyIsRented,
-,,Yes,No,,,,Yes,No
-BedSize,Double,57,43,,LeaseType,Fixed,63,37
-,Single,51,49,,,Temporary,45,55
-,,P(Yes) =  108/200,P(No) = 92/200,,,,P(Yes) =  108/200,P(No) = 92/200
+,,PropertyIsRented,,,,,PropertyIsRented,,,,,,,
+,,Yes,No,,,,Yes,No,,,,,,
+GardenType,Grass,61,43,,PropertyType,House,53,47,,,Grass,Double,House,Fixed
+,Concrete,47,49,,,Apartment,55,45,,,Grass,Double,House,Temporary
+,,P(Yes) = 108/200,P(No) = 92/200,,,,P(Yes) =  108/200,P(No) = 92/200,,,Grass,Double,Apartment,Fixed
+,,,,,,,,,,,Grass,Double,Apartment,Temporary
+,,,,,,,,,,,Grass,Single,House,Fixed
+,,PropertyIsRented,,,,,PropertyIsRented,,,,Grass,Single,House,Temporary
+,,Yes,No,,,,Yes,No,,,Grass,Single,Apartment,Fixed
+BedSize,Double,57,43,,LeaseType,Fixed,63,37,,,Grass,Single,Apartment,Temporary
+,Single,51,49,,,Temporary,45,55,,,Concrete,Double,House,Fixed
+,,P(Yes) =  108/200,P(No) = 92/200,,,,P(Yes) =  108/200,P(No) = 92/200,,,Concrete,Double,House,Temporary
+,,,,,,,,,,,Concrete,Double,Apartment,Fixed
+,,,,,,,,,,,Concrete,Double,Apartment,Temporary
+,,,,,,,,,,,Concrete,Single,House,Fixed
+,,,,,,,,,,,Concrete,Single,House,Temporary
+,,,,,,,,,,,Concrete,Single,Apartment,Fixed

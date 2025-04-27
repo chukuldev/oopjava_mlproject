@@ -31,7 +31,7 @@ public class FileProcessor {
         ArrayList<String> rows = new ArrayList<>();
 
         lines.put("Grass", counts);
-        counts.put("Yes", counts.get("Yes")+1);
+        counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
         try{
             myScanner = new Scanner(myFile);
             myScanner.useDelimiter(",");

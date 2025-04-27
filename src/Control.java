@@ -8,8 +8,8 @@ public class Control {
         //PropertyDataGenerator.genData();
 
         GUI mygui = new GUI();
-        FileProcessor myDataSet = new FileProcessor("propert_data.csv");
-
+        FileProcessor myDataSet = new FileProcessor("property_data.csv");
+        myDataSet.readFile();
 
     }
 }
