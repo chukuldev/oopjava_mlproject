@@ -34,11 +34,6 @@ public class FileProcessor {
 
         String[] featureColumns = {"GardenType", "BedSize", "PropertyType", "LeaseType", "PropertyIsRented"};
 
-        /*
-        features.put("Grass", counts);
-        counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
-         */
-
         try {
             myScanner = new Scanner(myFile);
             //skip my header line
