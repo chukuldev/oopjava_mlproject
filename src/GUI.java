@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 
 //our class extends from JFrame for the GUI creation and implements ActionListener
@@ -20,7 +19,13 @@ public class GUI extends JFrame implements ActionListener {
     JMenuItem exitItem = new JMenuItem("same bro");
 
     //create a panel for the first buttons
+    JPanel panel0 = new JPanel();
     JPanel panel = new JPanel();
+
+    JLabel gtLabel = new JLabel("Garden Type:");
+    JLabel btLabel = new JLabel("Bed Type:");
+    JLabel ptLabel = new JLabel("Property Type:");
+    JLabel ltLabel = new JLabel("Lease Type:");
 
     JButton predict = new JButton("Predict");
 
@@ -52,9 +57,16 @@ public class GUI extends JFrame implements ActionListener {
 
 
         //add our label and jtextfield to our panels
+        panel.add(gtLabel);
         panel.add(gardenTypes);
+
+        panel.add(btLabel);
         panel.add(bedTypes);
+
+        panel.add(ptLabel);
         panel.add(propertyTypes);
+
+        panel.add(ltLabel);
         panel.add(leaseTypes);
 
 
@@ -64,8 +76,9 @@ public class GUI extends JFrame implements ActionListener {
 
 
         //set the layout of the screen and add in all the panels.
-        this.setLayout(new GridLayout(6, 3));
+        this.setLayout(new GridLayout(9, 1));
         this.setJMenuBar(menuBar);
+        this.add(panel0);
         this.add(panel);
         this.add(panel2);
         this.setVisible(true);
