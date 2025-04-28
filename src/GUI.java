@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 //our class extends from JFrame for the GUI creation and implements ActionListener
@@ -33,10 +34,14 @@ public class GUI extends JFrame implements ActionListener {
     JButton predict = new JButton("Predict");
     JButton train = new JButton("Train");
     JButton addNew = new JButton("Add New Row");
+    JButton testClassifier = new JButton("Test Classifier");
+    JButton freqTable = new JButton("Print FreqTable/HashMap in Terminal");
 
 
     JPanel panel2 = new JPanel();
     JPanel panel3 = new JPanel();
+    JPanel panel4 = new JPanel();
+    JPanel panel5 = new JPanel();
 
     JComboBox<String> gardenTypes = new JComboBox<>(new String[]{"Grass", "Concrete"});
     JComboBox<String> bedTypes = new JComboBox<>(new String[]{"Double", "Single"});
@@ -86,6 +91,11 @@ public class GUI extends JFrame implements ActionListener {
         panel3.add(addNew);
         addNew.addActionListener(this);
 
+        panel4.add(testClassifier);
+        testClassifier.addActionListener(this);
+
+        panel5.add(freqTable);
+        freqTable.addActionListener(this);
 
         //set the layout of the screen and add in all the panels.
         this.setLayout(new GridLayout(9, 1));
@@ -94,6 +104,8 @@ public class GUI extends JFrame implements ActionListener {
         this.add(panel);
         this.add(panel2);
         this.add(panel3);
+        this.add(panel4);
+        this.add(panel5);
         this.setVisible(true);
 
     }
@@ -151,6 +163,12 @@ public class GUI extends JFrame implements ActionListener {
 
 
 
+        }
+        else if (e.getSource() == testClassifier){
+
+        }
+        else if (e.getSource() == freqTable){
+            //nbc.printHashMap();
         }
 
 
