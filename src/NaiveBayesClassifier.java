@@ -7,7 +7,9 @@ public class NaiveBayesClassifier {
     //These are for the theorem like the actual calculation
     private double priorYes;
     private double priorNo;
-    //Instance of my fileprocessor so that I can read the csv file
+    private double probYes = 1;
+    private double probNo = 1;
+    //Instance of my FileProcessor so that I can read the csv file
     FileProcessor myDataSet = new FileProcessor("property_data.csv");
     //The readFile function returns a list of string arrays, so I store that here
     //because I think when updating the classifier for level 3 I will basically reread the file
@@ -46,17 +48,18 @@ public class NaiveBayesClassifier {
         priorNo = (double) (features.get("Total").get("No"))
                 / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
 
-        double probYes = (double) (features.get(gardenType).get("Yes")) / (features.get("Total").get("Yes"));
-        probYes *= (double) (features.get(bedType).get("Yes")) / (features.get("Total").get("Yes"));
-        probYes *= (double) (features.get(propertyType).get("Yes")) / (features.get("Total").get("Yes"));
-        probYes *= (double) (features.get(leaseType).get("Yes")) / (features.get("Total").get("Yes"));
-        probYes *= priorYes;
+        /*
+        This for loop so that I don't have to do the same operation of multiplying the probYes by the individual
+        feature probability
+         */
+        for (String feature : featureType){
+            probYes *= (double) (features.get(feature).get("Yes")) / (features.get("Total").get("Yes"));
+            probNo *= (double) (features.get(feature).get("No")) / (features.get("Total").get("No"));
 
-        double probNo = (double) (features.get(gardenType).get("No")) / (features.get("Total").get("No"));
-        probNo *= (double) (features.get(bedType).get("No")) / (features.get("Total").get("No"));
-        probNo *= (double) (features.get(propertyType).get("No")) / (features.get("Total").get("No"));
-        probNo *= (double) (features.get(leaseType).get("No")) / (features.get("Total").get("No"));
+        }
+        probYes *= priorYes;
         probNo *= priorNo;
+
 
         System.out.println("Probability Yes: " + probYes);
         System.out.println("Probability No: " + probNo);
