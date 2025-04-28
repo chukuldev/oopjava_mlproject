@@ -14,10 +14,10 @@ public class GUI extends JFrame implements ActionListener {
     //a menubar for the top of our frame
     JMenuBar menuBar = new JMenuBar();
 
-    //adding a filemenu and appropriate menu elements to our menu bar
-    JMenu fileMenu = new JMenu("Help");
-    JMenuItem openItem = new JMenuItem("lol");
-    JMenuItem exitItem = new JMenuItem("same bro");
+    //adding a lil flair
+    JMenu fileMenu = new JMenu("Author");
+    JMenuItem nameItem = new JMenuItem("Andrew Ugweches");
+    JMenuItem studentNoItem = new JMenuItem("C23767071");
 
     //create a panel for the first buttons
     JPanel panel0 = new JPanel();
@@ -29,6 +29,7 @@ public class GUI extends JFrame implements ActionListener {
     JLabel ltLabel = new JLabel("Lease Type:");
 
     JButton predict = new JButton("Predict");
+    JButton train = new JButton("Train");
 
     //create another panel for our text or label
     JPanel panel2 = new JPanel();
@@ -49,9 +50,9 @@ public class GUI extends JFrame implements ActionListener {
         this.setSize(800, 600);
 
         //add the menu elements to the file menu
-        fileMenu.add(openItem);
+        fileMenu.add(nameItem);
         fileMenu.addSeparator();
-        fileMenu.add(exitItem);
+        fileMenu.add(studentNoItem);
 
         //add the fileMenu to the menuBar object
         menuBar.add(fileMenu);
@@ -72,7 +73,11 @@ public class GUI extends JFrame implements ActionListener {
 
 
         panel2.add(predict);
+        panel2.add(train);
         predict.addActionListener(this);
+        train.addActionListener(this);
+
+        predict.setEnabled(false);
 
 
 
@@ -100,10 +105,16 @@ public class GUI extends JFrame implements ActionListener {
 
             JOptionPane.showMessageDialog(popup, nbc.predict(gardenType, bedType, propertyType, leaseType));
 
-            }
         }
-
+        else if (e.getSource() == train){
+            nbc.trainClassifier();
+            JOptionPane.showMessageDialog(popup, "Classifier Trained");
+            predict.setEnabled(true);
+        }
     }
+
+
+}
 
 
 

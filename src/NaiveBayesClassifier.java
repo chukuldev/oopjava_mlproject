@@ -29,10 +29,15 @@ public class NaiveBayesClassifier {
 
     //Constructor, currently not sure how I feel about it generating my freq table, not sure if that's smooth.
     public NaiveBayesClassifier() throws IOException {
+
+        trainClassifier();
+        /*
         genFreqTable();
         getTotalsFreq();
 
-        printHashMap(features);
+         */
+
+        //printHashMap(features);
 
         //All used just for testing my Map
         //predict();
@@ -40,11 +45,19 @@ public class NaiveBayesClassifier {
         //System.out.println(features.get("Grass").get("No"));
     }
 
+    public void trainClassifier(){
+        tableRows = myDataSet.readFile();
+        genFreqTable();
+        getTotalsFreq();
+
+    }
+
     /*This the main maths function, passes in the values user selects with the GUI
     and then uses the .get function of the map to find the values for math manipulation
      */
     public String predict(String gardenType, String bedType, String propertyType, String leaseType){
         String[] featureType = {gardenType, bedType, propertyType, leaseType};
+
         priorYes = (double) (features.get("Total").get("Yes"))
                 / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
         priorNo = (double) (features.get("Total").get("No"))
