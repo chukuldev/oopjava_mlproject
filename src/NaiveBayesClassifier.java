@@ -149,6 +149,56 @@ public class NaiveBayesClassifier {
         }
     }
 
+    /*
+    Think I should actually be using method overloading here, instead of on the fileProcessor class.
+    Going to try make it so that it loops for 150 times, rather than the full list of string arrays (200)
+     */
+    public void genFreqTable(boolean lvl4){
+        int i = 0;
+        boolean sameCol = true;
+
+        for (String column : featureColumns){
+            //new hashmap that will store my count of Yes's and No's for each feature
+            Map<String, Integer> counts = new HashMap<>();
+            for (String[] row : tableRows) {
+                if(row[4].equals("Yes") && (row[i].equals(column))){
+                    counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
+                }
+                else if (row[4].equals("No") && (row[i].equals(column))){
+                    counts.put("No", counts.getOrDefault("No", 0)+1);
+                }
+            }
+            features.put(column, counts);
+            if (sameCol){
+                sameCol = false;
+            }
+            else{
+                sameCol = true;
+                i++;
+            }
+        }
+        //Test to see how my hashmap is looking
+        //printHashMap(features);
+
+    }
+
+    //quick copy-paste of above function basically just to do the same thing, but removes the additional
+    //clause for the if statement to just count up the total labels
+    public void getTotalsFreq(boolean lvl4){
+        for (String column : featureColumns){
+            Map<String, Integer> counts = new HashMap<>();
+            for (String[] row : tableRows) {
+                if(row[4].equals("Yes")){
+                    counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
+                }
+                else if (row[4].equals("No")){
+                    counts.put("No", counts.getOrDefault("No", 0)+1);
+                }
+            }
+            features.put("Total", counts);
+        }
+    }
+
 
 
 }
