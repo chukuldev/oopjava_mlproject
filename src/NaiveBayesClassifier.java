@@ -17,7 +17,9 @@ public class NaiveBayesClassifier {
     private List<String[]> tableRows = myDataSet.readFile();;
     /*Map with another map nested inside, idea here is each feature i.e. Grassy, Concrete, Double
      etc. will be a Key with a value of another Map with the Keys of Yes and No with a corresponding
-     integer count.
+     integer count. As of writing this comment it is a LinkedHashMap, I had changed it from a HashMap to
+     a linked one because it looked nicer with my current printHashMap function, but I could and might just
+     change my printHashMap function, removing the need for a linkedHashMap.
      */
     private Map<String, Map<String, Integer>> features = new LinkedHashMap<>();
     String[] featureColumns = {"Grass", "Concrete",
@@ -67,11 +69,15 @@ public class NaiveBayesClassifier {
     }
 
     public void genFreqTable(){
-
+        //I think I couldve made it better but it works
+        /*this i and sameCol are to loop through my csv but making sure to keep it on the
+        same column for 2 iterations as I am checking the same column for two different features
+         */
         int i = 0;
         boolean sameCol = true;
 
         for (String column : featureColumns){
+            //new hashmap that will store my count of Yes's and No's for each feature
             Map<String, Integer> counts = new HashMap<>();
             for (String[] row : tableRows) {
                 if(row[4].equals("Yes") && (row[i].equals(column))){
@@ -95,6 +101,8 @@ public class NaiveBayesClassifier {
 
     }
 
+    //quick copy-paste of above function basically just to do the same thing, but removes the additional
+    //clause for the if statement to just count up the total labels
     public void getTotalsFreq(){
         for (String column : featureColumns){
             Map<String, Integer> counts = new HashMap<>();
@@ -110,6 +118,7 @@ public class NaiveBayesClassifier {
         }
     }
 
+    //prints out the hashmap
     public void printHashMap(Map<String, Map<String, Integer>> map) {
         for (Map.Entry<String, Map<String, Integer>> entry : map.entrySet()) {
             String key = entry.getKey();
