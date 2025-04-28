@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 //our class extends from JFrame for the GUI creation and implements ActionListener
@@ -11,6 +12,7 @@ public class GUI extends JFrame implements ActionListener {
 
     //Attributes of our screen class
     NaiveBayesClassifier nbc = new NaiveBayesClassifier();
+    FileProcessor fileProcessor = new FileProcessor("property_data.csv");
     //a menubar for the top of our frame
     JMenuBar menuBar = new JMenuBar();
 
@@ -30,9 +32,11 @@ public class GUI extends JFrame implements ActionListener {
 
     JButton predict = new JButton("Predict");
     JButton train = new JButton("Train");
+    JButton addNew = new JButton("Add New Row");
 
-    //create another panel for our text or label
+
     JPanel panel2 = new JPanel();
+    JPanel panel3 = new JPanel();
 
     JComboBox<String> gardenTypes = new JComboBox<>(new String[]{"Grass", "Concrete"});
     JComboBox<String> bedTypes = new JComboBox<>(new String[]{"Double", "Single"});
@@ -58,7 +62,7 @@ public class GUI extends JFrame implements ActionListener {
         menuBar.add(fileMenu);
 
 
-        //add our label and jtextfield to our panels
+        //add our labels for the feature columns
         panel.add(gtLabel);
         panel.add(gardenTypes);
 
@@ -79,14 +83,17 @@ public class GUI extends JFrame implements ActionListener {
 
         predict.setEnabled(false);
 
+        panel3.add(addNew);
+        addNew.addActionListener(this);
 
 
         //set the layout of the screen and add in all the panels.
         this.setLayout(new GridLayout(9, 1));
         this.setJMenuBar(menuBar);
-        this.add(panel0);
+        //this.add(panel0);
         this.add(panel);
         this.add(panel2);
+        this.add(panel3);
         this.setVisible(true);
 
     }
@@ -111,6 +118,42 @@ public class GUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(popup, "Classifier Trained");
             predict.setEnabled(true);
         }
+        /*
+        else if (e.getSource() == addNew){
+            String gardenType = (String) gardenTypes.getSelectedItem();
+            String bedType = (String) bedTypes.getSelectedItem();
+            String propertyType = (String) propertyTypes.getSelectedItem();
+            String leaseType = (String) leaseTypes.getSelectedItem();
+
+            String fullInput = String.join(",",gardenType, bedType, propertyType, leaseType);
+
+            int result = JOptionPane.showConfirmDialog(popup, "Select Feature Label: ",
+                    "Confirm Adding Row", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (result == JOptionPane.YES_OPTION){
+                System.out.println("yes");
+                try {
+                    fileProcessor.writeToFile(fullInput);
+                    predict.setEnabled(false);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+            else if (result == JOptionPane.NO_OPTION){
+                System.out.println("nop");
+                try {
+                    fileProcessor.writeToFile(fullInput);
+                    predict.setEnabled(false);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+
+
+        }
+
+         */
     }
 
 

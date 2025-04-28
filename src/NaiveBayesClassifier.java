@@ -14,7 +14,7 @@ public class NaiveBayesClassifier {
     //The readFile function returns a list of string arrays, so I store that here
     //because I think when updating the classifier for level 3 I will basically reread the file
     //and retrain the classifier
-    private List<String[]> tableRows = myDataSet.readFile();;
+    private List<String[]> tableRows = myDataSet.readFile();
     /*Map with another map nested inside, idea here is each feature i.e. Grassy, Concrete, Double
      etc. will be a Key with a value of another Map with the Keys of Yes and No with a corresponding
      integer count. As of writing this comment it is a LinkedHashMap, I had changed it from a HashMap to
@@ -30,7 +30,7 @@ public class NaiveBayesClassifier {
     //Constructor, currently not sure how I feel about it generating my freq table, not sure if that's smooth.
     public NaiveBayesClassifier() throws IOException {
 
-        trainClassifier();
+        //trainClassifier();
         /*
         genFreqTable();
         getTotalsFreq();
