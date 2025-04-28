@@ -37,7 +37,7 @@ public class NaiveBayesClassifier {
 
          */
 
-        //printHashMap(features);
+        //printHashMap();
 
         //All used just for testing my Map
         //predict();
@@ -132,8 +132,8 @@ public class NaiveBayesClassifier {
     }
 
     //prints out the hashmap
-    public void printHashMap(Map<String, Map<String, Integer>> map) {
-        for (Map.Entry<String, Map<String, Integer>> entry : map.entrySet()) {
+    public void printHashMap() {
+        for (Map.Entry<String, Map<String, Integer>> entry : features.entrySet()) {
             String key = entry.getKey();
             Map<String, Integer> innerMap = entry.getValue();
 

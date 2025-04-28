@@ -96,6 +96,7 @@ public class GUI extends JFrame implements ActionListener {
 
         panel5.add(freqTable);
         freqTable.addActionListener(this);
+        freqTable.setEnabled(false);
 
         //set the layout of the screen and add in all the panels.
         this.setLayout(new GridLayout(9, 1));
@@ -129,6 +130,7 @@ public class GUI extends JFrame implements ActionListener {
             nbc.trainClassifier();
             JOptionPane.showMessageDialog(popup, "Classifier Trained");
             predict.setEnabled(true);
+            freqTable.setEnabled(true);
         }
 
         else if (e.getSource() == addNew){
@@ -168,7 +170,7 @@ public class GUI extends JFrame implements ActionListener {
 
         }
         else if (e.getSource() == freqTable){
-            //nbc.printHashMap();
+            nbc.printHashMap();
         }
 
 
