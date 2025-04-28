@@ -53,6 +53,10 @@ public class FileProcessor {
             myScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not Found");
+        } catch (NullPointerException e) {
+            System.out.println("There is a missing value somewhere in the CSV " +
+                    "(check that there is no extra blank row)," +
+                    "\nThe Predictor may run unpredictably (haha)");
         }
 
         //Just for testing trying to make sure I can separate all the rows properly
