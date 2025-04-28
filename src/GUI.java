@@ -13,7 +13,7 @@ public class GUI extends JFrame implements ActionListener {
     
     NaiveBayesClassifier nbc = new NaiveBayesClassifier();
     FileProcessor fileProcessor = new FileProcessor("property_data.csv");
-
+    
     //a menubar for the top of our frame, carry over from Lab Screen class (yay polymorphism!)
     JMenuBar menuBar = new JMenuBar();
 
@@ -29,13 +29,13 @@ public class GUI extends JFrame implements ActionListener {
     JPanel panel3 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel5 = new JPanel();
-
+    
     //labels
     JLabel gtLabel = new JLabel("Garden Type:");
     JLabel btLabel = new JLabel("Bed Type:");
     JLabel ptLabel = new JLabel("Property Type:");
     JLabel ltLabel = new JLabel("Lease Type:");
-
+    
     //buttons
     JButton predict = new JButton("Predict");
     JButton train = new JButton("Train");
@@ -48,10 +48,10 @@ public class GUI extends JFrame implements ActionListener {
     JComboBox<String> bedTypes = new JComboBox<>(new String[]{"Double", "Single"});
     JComboBox<String> propertyTypes = new JComboBox<>(new String[]{"House", "Apartment"});
     JComboBox<String> leaseTypes = new JComboBox<>(new String[]{"Fixed", "Temporary"});
-
+    
     //popup
     JOptionPane popup = new JOptionPane();
-
+    
     //constructor for our screen
     public GUI() throws IOException {
         //default params for our screen
@@ -83,20 +83,20 @@ public class GUI extends JFrame implements ActionListener {
         //next panel to hold some buttons
         panel2.add(predict);
         panel2.add(train);
-
+        
         predict.addActionListener(this);
         train.addActionListener(this);
 
         predict.setEnabled(false);
-
+        
         //another panel for some more buttons
         panel3.add(addNew);
         addNew.addActionListener(this);
-
+        
         //and again (this for level 4, wip)
         panel4.add(testClassifier);
         testClassifier.addActionListener(this);
-
+        
         //final panel
         panel5.add(freqTable);
         freqTable.addActionListener(this);
@@ -148,7 +148,7 @@ public class GUI extends JFrame implements ActionListener {
             String leaseType = (String) leaseTypes.getSelectedItem();
 
             String fullInput = String.join(",",gardenType, bedType, propertyType, leaseType);
-
+            
             //confirm user wants to add row based off the JComboBox's and allow them to select which label
             int result = JOptionPane.showConfirmDialog(popup, fullInput + "\nSelect Feature Label: ",
                     "Confirm Adding Row", JOptionPane.YES_NO_CANCEL_OPTION);
