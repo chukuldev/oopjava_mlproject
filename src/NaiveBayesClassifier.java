@@ -4,6 +4,7 @@ import java.util.*;
 public class NaiveBayesClassifier {
     private double priorYes;
     private double priorNo;
+    private List<String[]> tableRows;
 
 
     // AAAAGH
@@ -15,26 +16,35 @@ public class NaiveBayesClassifier {
 
     public NaiveBayesClassifier() throws IOException {
         FileProcessor myDataSet = new FileProcessor("property_data.csv");
-        genFreqTable(myDataSet.readFile());
-        getTotalsFreq(myDataSet.readFile());
+        tableRows = myDataSet.readFile();
+        genFreqTable(tableRows);
+        getTotalsFreq(tableRows);
         printHashMap(features);
         //predict();
         System.out.println(features.keySet());
+        System.out.println(features.get("Grass").get("No"));
     }
 
     public void predict(String gardenType, String bedType, String propertyType, String leaseType){
         String[] featureType = {gardenType, bedType, propertyType, leaseType};
+        priorYes = (double) (features.get("Total").get("Yes"))
+                / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
+        priorNo = (double) (features.get("Total").get("No"))
+                / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
 
-        for (Map.Entry<String, Map<String, Integer>> entry : features.entrySet()) {
-            String key = entry.getKey();
-            Map<String, Integer> innerMap = entry.getValue();
+        double probYes = (double) (features.get(gardenType).get("Yes")) / (features.get("Total").get("Yes"));
+        probYes *= (double) (features.get(bedType).get("Yes")) / (features.get("Total").get("Yes"));
+        probYes *= (double) (features.get(propertyType).get("Yes")) / (features.get("Total").get("Yes"));
+        probYes *= (double) (features.get(leaseType).get("Yes")) / (features.get("Total").get("Yes"));
+        probYes *= priorYes;
 
-            System.out.println("Key: " + key);
-            for (Map.Entry<String, Integer> innerEntry : innerMap.entrySet()) {
-                System.out.println("    " + innerEntry.getKey() + ": " + innerEntry.getValue());
-            }
+        double probNo = (double) (features.get(gardenType).get("No")) / (features.get("Total").get("No"));
+        probNo *= (double) (features.get(bedType).get("No")) / (features.get("Total").get("No"));
+        probNo *= (double) (features.get(propertyType).get("No")) / (features.get("Total").get("No"));
+        probNo *= (double) (features.get(leaseType).get("No")) / (features.get("Total").get("No"));
+        probNo *= priorNo;
 
-        }
+        String s = probYes > probNo ? "Yes" : "No";
     }
 
     public void genFreqTable(List<String[]> rows){
