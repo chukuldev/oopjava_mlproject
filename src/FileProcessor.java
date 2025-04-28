@@ -22,6 +22,10 @@ public class FileProcessor {
         myFile = new File(filename);
     }
 
+    /*This returns a List of String arrays because I initially wanted the file to instantly read and populate
+    a frequency table hashmap, but decided it would be better to read each row in my csv table and send
+    that back. Idk if this is better or even necessary but will continue for now
+     */
     public List<String[]> readFile() {
         List<String[]> rows = new ArrayList<>();
 

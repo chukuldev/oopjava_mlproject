@@ -2,18 +2,28 @@ import java.io.IOException;
 import java.util.*;
 
 public class NaiveBayesClassifier {
+    //Attributes of my class, struggled here with deciding on when to use what and where to use them
+
+    //These are for the theorem like the actual calculation
     private double priorYes;
     private double priorNo;
+    //Instance of my fileprocessor so that I can read the csv file
     FileProcessor myDataSet = new FileProcessor("property_data.csv");
+    //The readFile function returns a list of string arrays, so I store that here
+    //because I think when updating the classifier for level 3 I will basically reread the file
+    //and retrain the classifier
     private List<String[]> tableRows = myDataSet.readFile();;
-
-    // AAAAGH
+    /*Map with another map nested inside, idea here is each feature i.e. Grassy, Concrete, Double
+     etc. will be a Key with a value of another Map with the Keys of Yes and No with a corresponding
+     integer count.
+     */
     private Map<String, Map<String, Integer>> features = new LinkedHashMap<>();
     String[] featureColumns = {"Grass", "Concrete",
             "Double", "Single",
             "House", "Apartment",
             "Fixed", "Temporary"};
 
+    //Constructor, currently not sure how I feel about it generating my freq table, not sure if that's smooth.
     public NaiveBayesClassifier() throws IOException {
         genFreqTable();
         getTotalsFreq();
@@ -26,6 +36,9 @@ public class NaiveBayesClassifier {
         //System.out.println(features.get("Grass").get("No"));
     }
 
+    /*This the main maths function, passes in the values user selects with the GUI
+    and then uses the .get function of the map to find the values for math manipulation
+     */
     public String predict(String gardenType, String bedType, String propertyType, String leaseType){
         String[] featureType = {gardenType, bedType, propertyType, leaseType};
         priorYes = (double) (features.get("Total").get("Yes"))
