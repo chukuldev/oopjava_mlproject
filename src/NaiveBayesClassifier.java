@@ -15,6 +15,7 @@ public class NaiveBayesClassifier {
     //because I think when updating the classifier for level 3 I will basically reread the file
     //and retrain the classifier
     private List<String[]> tableRows = myDataSet.readFile();
+
     /*Map with another map nested inside, idea here is each feature i.e. Grassy, Concrete, Double
      etc. will be a Key with a value of another Map with the Keys of Yes and No with a corresponding
      integer count. As of writing this comment it is a LinkedHashMap, I had changed it from a HashMap to
@@ -29,7 +30,10 @@ public class NaiveBayesClassifier {
 
     //Constructor, currently not sure how I feel about it generating my freq table, not sure if that's smooth.
     public NaiveBayesClassifier() throws IOException {
-
+        /*
+        yeah constructor deprecated didn't end up really using it since I seem to have strayed too far
+        away to figure out how to reincorporate it again
+         */
         //trainClassifier();
         /*
         genFreqTable();
@@ -43,6 +47,7 @@ public class NaiveBayesClassifier {
         //predict();
         //System.out.println(features.keySet());
         //System.out.println(features.get("Grass").get("No"));
+
     }
 
     public void trainClassifier(){
@@ -83,7 +88,7 @@ public class NaiveBayesClassifier {
 
     public void genFreqTable(){
         //I think I couldve made it better but it works
-        /*this i and sameCol are to loop through my csv but making sure to keep it on the
+        /*this int i and sameCol are to loop through my csv but making sure to keep it on the
         same column for 2 iterations as I am checking the same column for two different features
          */
         int i = 0;
