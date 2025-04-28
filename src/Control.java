@@ -6,7 +6,6 @@ public class Control {
         //PropertyDataGenerator.genData();
 
         GUI mygui = new GUI();
-
         NaiveBayesClassifier naiveBayesClassifier = new NaiveBayesClassifier();
 
 

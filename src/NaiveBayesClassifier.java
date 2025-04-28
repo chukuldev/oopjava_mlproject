@@ -1,13 +1,13 @@
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NaiveBayesClassifier {
     private double priorYes;
     private double priorNo;
+
+
     // AAAAGH
-    private HashMap<String, Map<String, Integer>> features = new HashMap<>();
+    private Map<String, Map<String, Integer>> features = new LinkedHashMap<>();
     String[] featureColumns = {"Grass", "Concrete",
             "Double", "Single",
             "House", "Apartment",
@@ -15,10 +15,30 @@ public class NaiveBayesClassifier {
 
     public NaiveBayesClassifier() throws IOException {
         FileProcessor myDataSet = new FileProcessor("property_data.csv");
-        genHashMap(myDataSet.readFile());
+        genFreqTable(myDataSet.readFile());
+        getTotalsFreq(myDataSet.readFile());
+        printHashMap(features);
+        //predict();
+        System.out.println(features.keySet());
     }
 
-    public void genHashMap(List<String[]> rows){
+    public void predict(String gardenType, String bedType, String propertyType, String leaseType){
+        String[] featureType = {gardenType, bedType, propertyType, leaseType};
+
+        for (Map.Entry<String, Map<String, Integer>> entry : features.entrySet()) {
+            String key = entry.getKey();
+            Map<String, Integer> innerMap = entry.getValue();
+
+            System.out.println("Key: " + key);
+            for (Map.Entry<String, Integer> innerEntry : innerMap.entrySet()) {
+                System.out.println("    " + innerEntry.getKey() + ": " + innerEntry.getValue());
+            }
+
+        }
+    }
+
+    public void genFreqTable(List<String[]> rows){
+
         int i = 0;
         boolean sameCol = true;
 
@@ -42,11 +62,26 @@ public class NaiveBayesClassifier {
             }
         }
         //Test to see how my hashmap is looking
-        printHashMap(features);
+        //printHashMap(features);
 
     }
 
-    public void printHashMap(HashMap<String, Map<String, Integer>> map) {
+    public void getTotalsFreq(List<String[]> rows){
+        for (String column : featureColumns){
+            Map<String, Integer> counts = new HashMap<>();
+            for (String[] row : rows) {
+                if(row[4].equals("Yes")){
+                    counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
+                }
+                else if (row[4].equals("No")){
+                    counts.put("No", counts.getOrDefault("No", 0)+1);
+                }
+            }
+            features.put("Total", counts);
+        }
+    }
+
+    public void printHashMap(Map<String, Map<String, Integer>> map) {
         for (Map.Entry<String, Map<String, Integer>> entry : map.entrySet()) {
             String key = entry.getKey();
             Map<String, Integer> innerMap = entry.getValue();
