@@ -15,8 +15,8 @@ public class NaiveBayesClassifier {
             "Fixed", "Temporary"};
 
     public NaiveBayesClassifier() throws IOException {
-        genFreqTable(tableRows);
-        getTotalsFreq(tableRows);
+        genFreqTable();
+        getTotalsFreq();
 
         printHashMap(features);
 
@@ -50,14 +50,14 @@ public class NaiveBayesClassifier {
         return probYes > probNo ? "Yes" : "No";
     }
 
-    public void genFreqTable(List<String[]> rows){
+    public void genFreqTable(){
 
         int i = 0;
         boolean sameCol = true;
 
         for (String column : featureColumns){
             Map<String, Integer> counts = new HashMap<>();
-            for (String[] row : rows) {
+            for (String[] row : tableRows) {
                 if(row[4].equals("Yes") && (row[i].equals(column))){
                     counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
                 }
@@ -79,10 +79,10 @@ public class NaiveBayesClassifier {
 
     }
 
-    public void getTotalsFreq(List<String[]> rows){
+    public void getTotalsFreq(){
         for (String column : featureColumns){
             Map<String, Integer> counts = new HashMap<>();
-            for (String[] row : rows) {
+            for (String[] row : tableRows) {
                 if(row[4].equals("Yes")){
                     counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
                 }
