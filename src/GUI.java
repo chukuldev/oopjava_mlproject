@@ -118,7 +118,7 @@ public class GUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(popup, "Classifier Trained");
             predict.setEnabled(true);
         }
-        /*
+
         else if (e.getSource() == addNew){
             String gardenType = (String) gardenTypes.getSelectedItem();
             String bedType = (String) bedTypes.getSelectedItem();
@@ -127,12 +127,12 @@ public class GUI extends JFrame implements ActionListener {
 
             String fullInput = String.join(",",gardenType, bedType, propertyType, leaseType);
 
-            int result = JOptionPane.showConfirmDialog(popup, "Select Feature Label: ",
+            int result = JOptionPane.showConfirmDialog(popup, fullInput + "\nSelect Feature Label: ",
                     "Confirm Adding Row", JOptionPane.YES_NO_CANCEL_OPTION);
             if (result == JOptionPane.YES_OPTION){
-                System.out.println("yes");
+                System.out.println("new row added - label:yes");
                 try {
-                    fileProcessor.writeToFile(fullInput);
+                    fileProcessor.writeToFile(String.join(",", fullInput, "Yes"));
                     predict.setEnabled(false);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -140,9 +140,9 @@ public class GUI extends JFrame implements ActionListener {
 
             }
             else if (result == JOptionPane.NO_OPTION){
-                System.out.println("nop");
+                System.out.println("new row added - label:no");
                 try {
-                    fileProcessor.writeToFile(fullInput);
+                    fileProcessor.writeToFile(String.join(",", fullInput, "No"));
                     predict.setEnabled(false);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -153,7 +153,7 @@ public class GUI extends JFrame implements ActionListener {
 
         }
 
-         */
+
     }
 
 

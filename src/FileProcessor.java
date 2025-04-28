@@ -36,6 +36,9 @@ public class FileProcessor {
 
             while (myScanner.hasNextLine()) {
                 //take the first line of the csv
+                if(!myScanner.hasNext()){
+                    throw new NullPointerException("Error reading file");
+                }
                 String line = myScanner.nextLine();
                 //split the line into each column by using the ',' as a delimiter
                 String[] columns = line.split(",");
