@@ -1,8 +1,11 @@
 # oopjava_mlproject
 
 A machine learning classifier based on the Naive Bayes Classifier.
+
 Theme: PropertyIsRented
+
 Student Number: C23767071
+
 Video:  --wip--
 
 
