@@ -4,8 +4,8 @@ import java.util.*;
 public class NaiveBayesClassifier {
     private double priorYes;
     private double priorNo;
-    private List<String[]> tableRows;
-
+    FileProcessor myDataSet = new FileProcessor("property_data.csv");
+    private List<String[]> tableRows = myDataSet.readFile();;
 
     // AAAAGH
     private Map<String, Map<String, Integer>> features = new LinkedHashMap<>();
@@ -15,17 +15,18 @@ public class NaiveBayesClassifier {
             "Fixed", "Temporary"};
 
     public NaiveBayesClassifier() throws IOException {
-        FileProcessor myDataSet = new FileProcessor("property_data.csv");
-        tableRows = myDataSet.readFile();
         genFreqTable(tableRows);
         getTotalsFreq(tableRows);
+
         printHashMap(features);
+
+        //All used just for testing my Map
         //predict();
-        System.out.println(features.keySet());
-        System.out.println(features.get("Grass").get("No"));
+        //System.out.println(features.keySet());
+        //System.out.println(features.get("Grass").get("No"));
     }
 
-    public void predict(String gardenType, String bedType, String propertyType, String leaseType){
+    public String predict(String gardenType, String bedType, String propertyType, String leaseType){
         String[] featureType = {gardenType, bedType, propertyType, leaseType};
         priorYes = (double) (features.get("Total").get("Yes"))
                 / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
@@ -44,7 +45,9 @@ public class NaiveBayesClassifier {
         probNo *= (double) (features.get(leaseType).get("No")) / (features.get("Total").get("No"));
         probNo *= priorNo;
 
-        String s = probYes > probNo ? "Yes" : "No";
+        System.out.println("Probability Yes: " + probYes);
+        System.out.println("Probability No: " + probNo);
+        return probYes > probNo ? "Yes" : "No";
     }
 
     public void genFreqTable(List<String[]> rows){

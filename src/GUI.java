@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 //our class extends from JFrame for the GUI creation and implements ActionListener
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
 
     //Attributes of our screen class
-
+    NaiveBayesClassifier nbc = new NaiveBayesClassifier();
     //a menubar for the top of our frame
     JMenuBar menuBar = new JMenuBar();
 
@@ -42,7 +43,7 @@ public class GUI extends JFrame implements ActionListener {
     JTextArea area = new JTextArea(30, 30);
 
     //constructor for our screen
-    public GUI() {
+    public GUI() throws IOException {
         //default params for our screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
@@ -91,7 +92,13 @@ public class GUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //if button pressed was predict
         if (e.getSource() == predict) {
-            JOptionPane.showMessageDialog(popup, "abc");
+            String gardenType = (String) gardenTypes.getSelectedItem();
+            String bedType = (String) bedTypes.getSelectedItem();
+            String propertyType = (String) propertyTypes.getSelectedItem();
+            String leaseType = (String) leaseTypes.getSelectedItem();
+
+
+            JOptionPane.showMessageDialog(popup, nbc.predict(gardenType, bedType, propertyType, leaseType));
 
             }
         }

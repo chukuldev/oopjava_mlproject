@@ -49,9 +49,10 @@ public class FileProcessor {
         }
 
         //Just for testing trying to make sure I can separate all the rows properly
+        /*
         for (String[] row : rows) {
             System.out.println(Arrays.toString(row));
-        }
+        }*/
 
         return rows;
     }
