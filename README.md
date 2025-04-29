@@ -8,6 +8,25 @@ Student Number: C23767071
 
 Video:  --wip--
 
+Frequency Table: available in the repo as freqTable.xlsx
+
+Classes:
+
+Control - Starts up the code
+
+FileProcessor - Read my csv file
+
+GUI - Class inherited from JFrame implementing ActionListener interface. The Interactive GUI of the application
+
+NaiveBayesClassifier - Class that handles the main functionality of dynamic calculation of Bayes Theorem.
+
+PropertyDataGenerator - Class used to generate and populate my dataset
+
+StratifiedSplit - Class used to split data and stratify evenly between train and test groups for level 4 functionality.
+
+------------------------------------------------------
+
+
 
 So the aim for the assignment was to create a machine learning classifier as it says above. First thing was to generate a dataset.
 We were told to use gen-AI so that's what I did, which is how my PropertyDataGenerator class came to be. ChatGPT kinda struggled to generate the
