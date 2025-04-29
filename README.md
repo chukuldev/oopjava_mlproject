@@ -8,7 +8,7 @@ Student Number: C23767071
 
 Video: [link](https://vimeo.com/1079841158/4fb41920a2?share=copy)
 
-Frequency Table: available in the repo as (freqTable.xlsx)
+Frequency Table: available in the repo as freqTable.xlsx
 
 Classes:
 
