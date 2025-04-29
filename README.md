@@ -29,7 +29,11 @@ The NBC class is where the maths and hashmap navigation mostly occur. It is fill
 it stores that returned list of string arrays in tableRows, which is used whenever generating/updating/retraining the Map/Freq/Like table. The predict() function
 is the dynamic implementation of the Bayes theorem. The function finds the priorYes and priorNo by fetching the value of their counts stored on the Map,
 multiplies together the probability of the independent events(each feature) , seperated by label, to give the posteriorProbability or final probability for Yes and No,
-based on the entered in values. Evaluating which of the two is higher to give a prediction on what label the inputted combination will possess.
+based on the entered in values. Evaluating which of the two is higher to give a prediction on what label the inputted combination will possess. I decided to keep that little '--'
+section in the above paragraph to show how I changed my functionality. As of writing my level 4 is done and you are able to test the data but I am unsatisfied with my classifier accuracy.
+I believe this is because I have not yet tried to stratify my data evenly, but I will be trying that next! Anyway the method overloading was implemented here my likelihood table functions
+were now being passed two integer arguments, for where to start and finish training the dataset. I then called upon my predict function and compared the output to the actual label and
+made note of the amount correct to give my final accuracy.
 
 
 The GUI class is as it sounds, it is the screen and it is where I add all the interactive buttons for using the classifier. I'm not really a fan of how the code
