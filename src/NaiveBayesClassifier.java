@@ -85,7 +85,7 @@ public class NaiveBayesClassifier {
         for (int i = 151; i < 200; i++){
             //store the i'th row of the csv
             String[] row = tableRows.get(i);
-            System.out.println(Arrays.toString(row));
+            //System.out.println(Arrays.toString(row));
             //get the trained classifier to make a prediction based on the columns of the current row
             String prediction = predict(row[0], row[1], row[2], row[3]);
             System.out.println(prediction);
@@ -109,7 +109,7 @@ public class NaiveBayesClassifier {
      */
     public String predict(String gardenType, String bedType, String propertyType, String leaseType){
         String[] featureType = {gardenType, bedType, propertyType, leaseType};
-
+        System.out.println(String.join("," , gardenType, bedType, propertyType, leaseType));
         priorYes = (double) (features.get("Total").get("Yes"))
                 / ((features.get("Total").get("Yes")) + (features.get("Total").get("No")));
         priorNo = (double) (features.get("Total").get("No"))
