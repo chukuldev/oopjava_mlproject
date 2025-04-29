@@ -11,6 +11,11 @@ public class NaiveBayesClassifier {
     private double probNo;
 
     private double correctCount;
+
+    //Instance of my StratifiedSplit class to return a list of string arrays that have been selected to
+    //ensure even stratification of results
+    StratifiedSplit splitData = new StratifiedSplit();
+
     //Instance of my FileProcessor so that I can read the csv file
     FileProcessor myDataSet = new FileProcessor("property_data.csv");
     //The readFile function returns a list of string arrays, so I store that here
@@ -62,9 +67,17 @@ public class NaiveBayesClassifier {
     public String testClassifier(){
         correctCount = 0;
 
+        /* ORIGINAL FUNCTIONALITY PRESERVED BEFORE MEDDLING WITH THE STRATIFYING DATA
+        //USING THIS CAN SEE HOW MY CLASSIFIER PERFORMS WITH ORIGINAL DATA FOUND IN CSV FILE
         //update and retrain the classifier
         tableRows = myDataSet.readFile();
         //this time however only on the first 150 rows of the data
+        genFreqTable(0, 150);
+        getTotalsFreq(0, 150);
+         */
+
+        //using the Stratified Data but in a way that made sense with how my program was already designed
+        tableRows = splitData.getCombinedSet();
         genFreqTable(0, 150);
         getTotalsFreq(0, 150);
 

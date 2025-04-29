@@ -1,20 +1,23 @@
 /*
-GenAI solution for stratifying my data...
-
+GenAI did start off this code originally so credit where credit is due, just changed everything
+to actually work in my program
  */
+
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class StratifiedSplit {
+    public FileProcessor fileProcessor = new FileProcessor("property_data.csv");
+    List<String[]> existingData = fileProcessor.readFile();
+    List<DataRow> trainSet = new ArrayList<>();
+    List<DataRow> testSet = new ArrayList<>();
 
-    public static void main(String[] args) {
-        // Example dataset (replace with your actual data)
+    public StratifiedSplit() throws IOException {
         List<DataRow> dataset = new ArrayList<>();
-        dataset.add(new DataRow(1, 2, 3, 4, "Yes"));
-        dataset.add(new DataRow(5, 6, 7, 8, "No"));
-        dataset.add(new DataRow(9, 10, 11, 12, "Yes"));
-        dataset.add(new DataRow(13, 14, 15, 16, "No"));
-        // ... (add all 200 rows)
+        for (String[] row : existingData) {
+            dataset.add(new DataRow(row[0], row[1], row[2], row[3], row[4]));
+        }
 
         // Step 1: Group data by label
         Map<String, List<DataRow>> groupedByLabel = dataset.stream()
@@ -22,8 +25,6 @@ public class StratifiedSplit {
 
         // Step 2: Define split ratio (150 train, 50 test)
         double testRatio = 50.0 / dataset.size(); // 25% test
-        List<DataRow> trainSet = new ArrayList<>();
-        List<DataRow> testSet = new ArrayList<>();
 
         // Step 3: Stratified split for each label group
         for (Map.Entry<String, List<DataRow>> entry : groupedByLabel.entrySet()) {
@@ -48,17 +49,44 @@ public class StratifiedSplit {
         System.out.println("Test 'No' count: " + countLabel(testSet, "No"));
     }
 
+    // Convert DataRow objects back to String[] for test set
+    public List<String[]> getTestSet() {
+        List<String[]> result = new ArrayList<>();
+        for (DataRow row : testSet) {
+            result.add(new String[]{row.f1, row.f2, row.f3, row.f4, row.getLabel()});
+        }
+        return result;
+    }
+
+    // Convert DataRow objects back to String[] for train set
+    public List<String[]> getTrainSet() {
+        List<String[]> result = new ArrayList<>();
+        for (DataRow row : trainSet) {
+            result.add(new String[]{row.f1, row.f2, row.f3, row.f4, row.getLabel()});
+        }
+        return result;
+    }
+
+    //output as an entire List of String arrays to preserve existing functionality in NBC class
+    public List<String[]> getCombinedSet(){
+        List<String[]> combined = getTrainSet();
+        combined.addAll(getTestSet());
+
+        return combined;
+    }
+
     // Helper method to count label occurrences
     private static long countLabel(List<DataRow> data, String label) {
         return data.stream().filter(row -> row.getLabel().equals(label)).count();
     }
 
-    // Sample data row class (replace with your actual structure)
+    // Inner class to hold row data, funny that this class of data is basically the same as what I thought to
+    // implement originally but didn't realise how I could make use of it
     static class DataRow {
-        private int f1, f2, f3, f4;
+        private String f1, f2, f3, f4;
         private String label;
 
-        public DataRow(int f1, int f2, int f3, int f4, String label) {
+        public DataRow(String f1, String f2, String f3, String f4, String label) {
             this.f1 = f1;
             this.f2 = f2;
             this.f3 = f3;
