@@ -7,8 +7,10 @@ public class NaiveBayesClassifier {
     //These are for the theorem like the actual calculation
     private double priorYes;
     private double priorNo;
-    private double probYes = 1;
-    private double probNo = 1;
+    private double probYes;
+    private double probNo;
+
+    private double correctCount;
     //Instance of my FileProcessor so that I can read the csv file
     FileProcessor myDataSet = new FileProcessor("property_data.csv");
     //The readFile function returns a list of string arrays, so I store that here
@@ -57,6 +59,32 @@ public class NaiveBayesClassifier {
 
     }
 
+    public void testClassifier(){
+        correctCount = 0;
+
+        tableRows = myDataSet.readFile();
+        genFreqTable(0, 150);
+        getTotalsFreq(0, 150);
+
+        //printHashMap();
+        for (int i = 151; i < 200; i++){
+            String[] row = tableRows.get(i);
+            System.out.println(Arrays.toString(row));
+            String prediction = predict(row[0], row[1], row[2], row[3]);
+            System.out.println(prediction);
+
+            if (prediction.equals(row[4])){
+                correctCount++;
+                System.out.println("Classifier correct!");
+            }
+        }
+        System.out.println("Classifier correct count: " + correctCount);
+        correctCount = correctCount/50;
+        System.out.println("Classifier accuracy: "+ correctCount);
+
+
+    }
+
     /*This the main maths function, passes in the values user selects with the GUI
     and then uses the .get function of the map to find the values for math manipulation
      */
@@ -72,13 +100,14 @@ public class NaiveBayesClassifier {
         This for loop so that I don't have to do the same operation of multiplying the probYes by the individual
         feature probability
          */
+        probYes = priorYes;
+        probNo = priorNo;
         for (String feature : featureType){
             probYes *= (double) (features.get(feature).get("Yes")) / (features.get("Total").get("Yes"));
             probNo *= (double) (features.get(feature).get("No")) / (features.get("Total").get("No"));
 
         }
-        probYes *= priorYes;
-        probNo *= priorNo;
+
 
 
         System.out.println("Probability Yes: " + probYes);
@@ -87,7 +116,7 @@ public class NaiveBayesClassifier {
     }
 
     public void genFreqTable(){
-        //I think I couldve made it better but it works
+        //I think I could've made it better but it works
         /*this int i and sameCol are to loop through my csv but making sure to keep it on the
         same column for 2 iterations as I am checking the same column for two different features
          */
@@ -153,14 +182,14 @@ public class NaiveBayesClassifier {
     Think I should actually be using method overloading here, instead of on the fileProcessor class.
     Going to try make it so that it loops for 150 times, rather than the full list of string arrays (200)
      */
-    public void genFreqTable(boolean lvl4){
+    public void genFreqTable(int start, int end){
         int i = 0;
         boolean sameCol = true;
 
         for (String column : featureColumns){
-            //new hashmap that will store my count of Yes's and No's for each feature
             Map<String, Integer> counts = new HashMap<>();
-            for (String[] row : tableRows) {
+            for (int j = start; j < end; j++){
+                String [] row = tableRows.get(j);
                 if(row[4].equals("Yes") && (row[i].equals(column))){
                     counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
                 }
@@ -182,12 +211,12 @@ public class NaiveBayesClassifier {
 
     }
 
-    //quick copy-paste of above function basically just to do the same thing, but removes the additional
-    //clause for the if statement to just count up the total labels
-    public void getTotalsFreq(boolean lvl4){
+    //more method overloading same as above for level 4 functionality
+    public void getTotalsFreq(int start, int end){
         for (String column : featureColumns){
             Map<String, Integer> counts = new HashMap<>();
-            for (String[] row : tableRows) {
+            for (int j = start; j < end; j++){
+                String [] row = tableRows.get(j);
                 if(row[4].equals("Yes")){
                     counts.put("Yes", counts.getOrDefault("Yes", 0)+1);
                 }

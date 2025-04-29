@@ -10,7 +10,7 @@ import java.util.HashMap;
 //our class extends from JFrame for the GUI creation and implements ActionListener
 // for event handling
 public class GUI extends JFrame implements ActionListener {
-    
+
     NaiveBayesClassifier nbc = new NaiveBayesClassifier();
     FileProcessor fileProcessor = new FileProcessor("property_data.csv");
     
@@ -115,8 +115,8 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
-    //this method gets performs an action when one of our Jbuttons are pressed
-    // using the getSource function to find which button has been pressed to give the apropriate output
+    //this method gets performs an action when one of our JButtons are pressed
+    // using the getSource function to find which button has been pressed to give the appropriate output
     @Override
     public void actionPerformed(ActionEvent e) {
         //if button pressed was predict
@@ -177,6 +177,8 @@ public class GUI extends JFrame implements ActionListener {
         }
         //This will be for level 4 functionality
         else if (e.getSource() == testClassifier){
+            nbc.testClassifier();
+            //nbc.printHashMap();
 
         }
         //This is to print out the hashmap, lets you see that new rows are being added
