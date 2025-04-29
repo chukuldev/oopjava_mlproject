@@ -24,6 +24,22 @@ PropertyDataGenerator - Class used to generate and populate my dataset
 
 StratifiedSplit - Class used to split data and stratify evenly between train and test groups for level 4 functionality.
 
+
+What would I add if I had more time:
+
+
+Make the GUI prettier.
+
+Clean up some of the classes for sure. I think I could have extracted my data from the rows and rather than always output my rows as a string array, instead store it in another class
+of data like I had thought to implement early on in the code. I don't know why I retconned that, maybe it was just starting to get too complicated in my head.
+
+Probably could've made the NBC implement a Classifier interface but I thought it was an unnecessary demonstration of understanding.
+
+I would also improve the calculation of my NBC's accuracy by including the calculation of a F1 score, maybe even displaying a confusion matrix to the user.
+
+Below is the readme I had written before I realsied there were specific requirements for the readme.
+
+Original Readme section
 ------------------------------------------------------
 
 
