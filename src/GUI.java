@@ -177,7 +177,7 @@ public class GUI extends JFrame implements ActionListener {
         }
         //This will be for level 4 functionality
         else if (e.getSource() == testClassifier){
-            nbc.testClassifier();
+            JOptionPane.showMessageDialog(popup, nbc.testClassifier());
             //nbc.printHashMap();
 
         }

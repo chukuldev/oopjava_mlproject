@@ -59,28 +59,34 @@ public class NaiveBayesClassifier {
 
     }
 
-    public void testClassifier(){
+    public String testClassifier(){
         correctCount = 0;
 
+        //update and retrain the classifier
         tableRows = myDataSet.readFile();
+        //this time however only on the first 150 rows of the data
         genFreqTable(0, 150);
         getTotalsFreq(0, 150);
 
         //printHashMap();
         for (int i = 151; i < 200; i++){
+            //store the i'th row of the csv
             String[] row = tableRows.get(i);
             System.out.println(Arrays.toString(row));
+            //get the trained classifier to make a prediction based on the columns of the current row
             String prediction = predict(row[0], row[1], row[2], row[3]);
             System.out.println(prediction);
 
+            //compare the classifier's prediction to the actual label
             if (prediction.equals(row[4])){
                 correctCount++;
                 System.out.println("Classifier correct!");
             }
         }
+        //output the data and accuracy to terminal
         System.out.println("Classifier correct count: " + correctCount);
         correctCount = correctCount/50;
-        System.out.println("Classifier accuracy: "+ correctCount);
+        return ("Classifier accuracy: "+ correctCount);
 
 
     }
